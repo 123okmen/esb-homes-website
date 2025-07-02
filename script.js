@@ -159,8 +159,8 @@ window.onload = function() {
         setTimeout(() => {
             const style = styleSelect.value;
             const finish = finishSelect.value;
-            const foundationType = foundationTypeSelect.value;
-            const mezzanineOption = mezzanineOptionOption.value;
+            const foundationType = foundationTypeSelect.value; // Corrected variable name
+            const mezzanineOption = mezzanineOptionSelect.value;
             const rooftopOption = rooftopOptionSelect.value;
             const roofType = roofTypeSelect.value;
 
@@ -358,20 +358,20 @@ Cảm ơn.
         },
         { id: 'cac-goi-xay-dung', text: 'Gói xây dựng', icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>' },
         { id: 'luu-y-quan-trong', text: 'Lưu ý quan trọng', icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>' },
-        { id: 'lien-he', text: 'Liên hệ', icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg>' } // Icon for 'Contact'
+        { id: 'lien-he', text: 'Liên hệ', icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg>' }
     ];
 
-    // Function to generate menu items (remains unchanged, but will use updated menuSections)
+    // Function to generate menu items
     const generateMenuItems = (menuListElement, isSideMenu = false) => {
         menuListElement.innerHTML = ''; // Clear existing items
         menuSections.forEach(section => {
             const listItem = document.createElement('li');
-            const linkClass = isSideMenu ? 'active-side-link' : 'active-toc-link';
+            // No need for linkClass here, active state handled by observer
 
             if (section.subItems) {
                 // Main item with sub-menu
                 listItem.innerHTML = `
-                    <a href="#${section.id}" class="flex items-center ${isSideMenu ? '' : 'main-toc-link'}">
+                    <a href="#${section.id}" class="flex items-center">
                         ${section.icon || ''}<span>${section.text}</span>
                     </a>
                     <ul class="pl-4 mt-1 space-y-1 ${isSideMenu ? 'text-base' : 'text-xs'}">
@@ -393,14 +393,15 @@ Cảm ơn.
     generateMenuItems(floatingNavList, false); // Populate floating TOC
 
     const allSections = document.querySelectorAll('section'); // All observable sections
-    const allSideMenuLinks = document.querySelectorAll('#side-nav-list a');
-    const allFloatingTocLinks = document.querySelectorAll('#floating-nav-list a');
+    const allSideMenuLinks = document.querySelectorAll('#side-nav-list a'); // Select all links including sub-links
+    const allFloatingTocLinks = document.querySelectorAll('#floating-nav-list a'); // Select all links including sub-links
 
     const toggleSideMenu = () => {
         sideMenu.classList.toggle('translate-x-full');
         sideMenuOverlay.classList.toggle('hidden');
         sideMenuOverlay.classList.toggle('opacity-0');
         sideMenuOverlay.classList.toggle('opacity-50');
+        document.body.classList.toggle('overflow-hidden'); // Prevent body scroll when menu is open
     };
 
     hamburgerBtn.addEventListener('click', toggleSideMenu);
@@ -441,20 +442,32 @@ Cảm ơn.
                 // Update side menu links
                 allSideMenuLinks.forEach(link => {
                     link.classList.remove('active-side-link');
+                    // Check if it's a direct link to the section
                     if (link.getAttribute('href') === `#${id}`) {
                         link.classList.add('active-side-link');
-                    } else if (id.startsWith('bao-gia-') && link.getAttribute('href') === '#bao-gia') {
-                        link.classList.add('active-side-link'); // Highlight main 'Báo giá' if sub-section is active
+                    }
+                    // Check if it's a sub-section of 'bao-gia' and highlight the main 'bao-gia' link
+                    if (id.startsWith('bao-gia-')) {
+                        const mainBaoGiaLink = document.querySelector('#side-nav-list a[href="#bao-gia"]');
+                        if (mainBaoGiaLink) {
+                            mainBaoGiaLink.classList.add('active-side-link');
+                        }
                     }
                 });
 
                 // Update floating TOC links
                 allFloatingTocLinks.forEach(link => {
                     link.classList.remove('active-toc-link');
+                    // Check if it's a direct link to the section
                     if (link.getAttribute('href') === `#${id}`) {
                         link.classList.add('active-toc-link');
-                    } else if (id.startsWith('bao-gia-') && link.getAttribute('href') === '#bao-gia') {
-                        link.classList.add('active-toc-link'); // Highlight main 'Báo giá' if sub-section is active
+                    }
+                    // Check if it's a sub-section of 'bao-gia' and highlight the main 'bao-gia' link
+                    if (id.startsWith('bao-gia-')) {
+                        const mainBaoGiaLink = document.querySelector('#floating-nav-list a[href="#bao-gia"]');
+                        if (mainBaoGiaLink) {
+                            mainBaoGiaLink.classList.add('active-toc-link');
+                        }
                     }
                 });
             }

@@ -168,10 +168,13 @@ p, li, label, .nav-link span, button span, td, input, select, textarea {
 }
 
 /* Side Menu specific styles (for mobile/small screens) */
+#side-menu ul {
+    padding-bottom: 2rem; /* Add padding at the bottom for scrolling */
+}
 #side-menu ul li a {
     display: flex; /* Use flex for icon and text alignment */
     align-items: center;
-    padding: 0.75rem 1rem;
+    padding: 0.85rem 1.25rem; /* Increased padding for better touch targets */
     border-radius: 0.25rem;
     color: #E0E7FF;
     transition: all 0.2s ease;
@@ -196,16 +199,21 @@ p, li, label, .nav-link span, button span, td, input, select, textarea {
 
 /* Side Menu Sub-menu styles */
 #side-menu ul li ul {
-    padding-left: 1.5rem; /* Indent sub-items */
+    padding-left: 1.8rem; /* Increased indent for sub-items */
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 }
 #side-menu ul li ul li a {
-    padding: 0.5rem 1rem; /* Adjust padding for sub-items */
+    padding: 0.6rem 1rem; /* Adjust padding for sub-items */
     font-size: 1rem; /* Smaller font for sub-items */
+    color: #CBD5E0; /* Slightly lighter text for sub-items */
+}
+#side-menu ul li ul li a:hover {
+    background-color: rgba(251, 191, 36, 0.08); /* Even lighter hover for sub-items */
+    color: #FBBF24;
 }
 #side-menu ul li ul li a.active-side-link {
-    background-color: rgba(251, 191, 36, 0.3); /* Lighter active for sub-items */
+    background-color: rgba(251, 191, 36, 0.2); /* Lighter active for sub-items */
     color: #FBBF24;
     font-weight: 600;
 }
