@@ -19,7 +19,7 @@ window.onload = function() {
         });
     });
 
-    // Cost Estimation Logic
+    // Cost Estimation Logic (remains unchanged)
     const estimatorForm = document.getElementById('estimatorForm');
     const areaInput = document.getElementById('area');
     const floorsInput = document.getElementById('floors');
@@ -41,10 +41,8 @@ window.onload = function() {
     const sendEmailBtn = document.getElementById('sendEmailBtn');
     const ctxCostBreakdown = document.getElementById('costBreakdownChart').getContext('2d');
 
-    // Variable to store the last calculated quote data
     let lastQuoteData = null;
 
-    // Initial chart setup (will be updated on calculation)
     let costBreakdownChart = new Chart(ctxCostBreakdown, {
         type: 'bar',
         data: {
@@ -78,20 +76,20 @@ window.onload = function() {
                     title: {
                         display: true,
                         text: 'Tỷ lệ (%)',
-                        color: '#3a3a3a' /* Dark text for chart axis title */
+                        color: '#3a3a3a'
                     },
                     ticks: {
-                        color: '#3a3a3a' /* Dark text for chart ticks */
+                        color: '#3a3a3a'
                     },
                     grid: {
-                        color: 'rgba(0, 0, 0, 0.1)' /* Light grid lines */
+                        color: 'rgba(0, 0, 0, 0.1)'
                     }
                 },
                 x: {
                     ticks: {
                         callback: function(value, index, values) {
                             const label = this.getLabelForValue(value);
-                            if (label.length > 16) { // Wrap long labels
+                            if (label.length > 16) {
                                 return label.split(' ').reduce((acc, word) => {
                                     if (acc[acc.length - 1].length + word.length + 1 > 16) {
                                         acc.push(word);
@@ -103,10 +101,10 @@ window.onload = function() {
                             }
                             return label;
                         },
-                        color: '#3a3a3a' /* Dark text for chart ticks */
+                        color: '#3a3a3a'
                     },
                     grid: {
-                        color: 'rgba(0, 0, 0, 0.1)' /* Light grid lines */
+                        color: 'rgba(0, 0, 0, 0.1)'
                     }
                 }
             },
@@ -131,14 +129,14 @@ window.onload = function() {
                 title: {
                     display: true,
                     text: 'PHÂN BỔ CHI PHÍ ƯỚC TÍNH (TỶ LỆ PHẦN TRĂM)',
-                    font: { size: 16, family: 'Arial', color: '#3a3a3a' } /* Dark text for chart title */
+                    font: { size: 16, family: 'Arial', color: '#3a3a3a' }
                 }
             }
         }
     });
 
     estimatorForm.addEventListener('submit', (event) => {
-        event.preventDefault(); // Prevent actual form submission
+        event.preventDefault();
 
         const area = parseFloat(areaInput.value);
         const floors = parseInt(floorsInput.value);
@@ -158,7 +156,6 @@ window.onload = function() {
         resultsSection.classList.add('hidden');
         emailNotification.classList.add('hidden');
 
-        // Simulate calculation delay
         setTimeout(() => {
             const style = styleSelect.value;
             const finish = finishSelect.value;
@@ -167,35 +164,28 @@ window.onload = function() {
             const rooftopOption = rooftopOptionSelect.value;
             const roofType = roofTypeSelect.value;
 
-            let baseCostPerSqM = 5000000; // Base cost per square meter (VNĐ) for basic finish, modern style
+            let baseCostPerSqM = 5000000;
 
-            // Adjust for style
             if (style === 'neoclassical') baseCostPerSqM *= 1.2;
             else if (style === 'minimalist') baseCostPerSqM *= 0.95;
 
-            // Adjust for finish level
             if (finish === 'standard') baseCostPerSqM *= 1.15;
             else if (finish === 'premium') baseCostPerSqM *= 1.35;
 
-            // Adjust for number of floors
             let floorFactor = 1;
             if (floors === 2) floorFactor = 1.05;
             else if (floors === 3) floorFactor = 1.1;
             else if (floors === 4) floorFactor = 1.15;
             else if (floors > 4) floorFactor = 1.2;
 
-            // Adjust for foundation type
             let foundationFactor = 1;
             if (foundationType === 'strip') foundationFactor = 1.05;
             else if (foundationType === 'pile') foundationFactor = 1.10;
             
-            // Adjust for mezzanine
             let mezzanineFactor = (mezzanineOption === 'yes') ? 1.03 : 1;
             
-            // Adjust for rooftop
             let rooftopFactor = (rooftopOption === 'yes') ? 1.02 : 1;
 
-            // Adjust for roof type
             let roofFactor = 1;
             if (roofType === 'thai') roofFactor = 1.05;
             else if (roofType === 'japanese') roofFactor = 1.07;
@@ -203,7 +193,6 @@ window.onload = function() {
             const totalArea = area * floors;
             const totalEstimatedCost = totalArea * baseCostPerSqM * floorFactor * foundationFactor * mezzanineFactor * rooftopFactor * roofFactor;
 
-            // Store data for the email button
             lastQuoteData = {
                 area,
                 floors,
@@ -217,10 +206,8 @@ window.onload = function() {
                 totalEstimatedCost
             };
 
-            // Update main cost display
             estimatedCostDisplay.textContent = `${totalEstimatedCost.toLocaleString('vi-VN')} VNĐ`;
             
-            // --- Chart and Detailed Breakdown Data ---
             const breakdownPercentages = {
                 'basic':    { rough: 40, finishing: 30, me: 15, design: 10, contingency: 5 },
                 'standard': { rough: 35, finishing: 35, me: 15, design: 10, contingency: 5 },
@@ -296,7 +283,6 @@ window.onload = function() {
                 paymentScheduleTableBody.appendChild(row);
             });
 
-            // Show results and hide spinner
             resultsSection.classList.remove('hidden');
             costLoadingSpinner.style.display = 'none';
 
@@ -348,102 +334,21 @@ Cảm ơn.
         }, 3000);
     });
 
-    // Navigation Logic (Bottom Nav)
-    const sections = document.querySelectorAll('section');
-    const navLinksDesktop = document.querySelectorAll('#desktop-nav a');
-    const navLinksMobile = document.querySelectorAll('#mobile-nav > li > a'); // Select direct children 'a' of #mobile-nav
-    const navSubLinksMobile = document.querySelectorAll('#mobile-nav ul a'); // Select sub-menu links
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const id = entry.target.getAttribute('id');
-                
-                // For desktop navigation
-                navLinksDesktop.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${id}`) {
-                        link.classList.add('active');
-                    } else if (id.startsWith('bao-gia-') && link.getAttribute('href') === '#bao-gia') {
-                        // If a sub-section of 'bao-gia' is active, highlight the main 'bao-gia' link
-                        link.classList.add('active');
-                    }
-                });
-
-                // For mobile navigation (main links)
-                navLinksMobile.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${id}`) {
-                        link.classList.add('active');
-                    } else if (id.startsWith('bao-gia-') && link.getAttribute('href') === '#bao-gia') {
-                        // If a sub-section of 'bao-gia' is active, highlight the main 'bao-gia' link
-                        link.classList.add('active');
-                    }
-                });
-
-                // For mobile navigation (sub-links)
-                navSubLinksMobile.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${id}`) {
-                        link.classList.add('active');
-                    }
-                });
-
-                // Update floating TOC active state
-                document.querySelectorAll('#floating-nav-list a').forEach(link => {
-                    link.classList.remove('active-toc-link');
-                    if (link.getAttribute('href') === `#${id}`) {
-                        link.classList.add('active-toc-link');
-                    } else if (id.startsWith('bao-gia-') && link.getAttribute('href') === '#bao-gia') {
-                        // If a sub-section of 'bao-gia' is active, highlight the main 'bao-gia' link in TOC
-                        link.classList.add('active-toc-link');
-                    }
-                });
-            }
-        });
-    }, { rootMargin: '-30% 0px -70% 0px' });
-
-    sections.forEach(section => {
-        observer.observe(section);
-    });
-    
-    // Mobile menu toggle
-    const mobileMenuButton = document.getElementById('mobile-menu-button'); // This button is not present in your HTML, consider adding it for mobile.
-    const mobileMenu = document.getElementById('mobile-menu');
-    const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
-
-    const toggleMenu = () => {
-        mobileMenu.classList.toggle('translate-y-full');
-        mobileMenuOverlay.classList.toggle('hidden');
-        mobileMenuOverlay.classList.toggle('opacity-0');
-        mobileMenuOverlay.classList.toggle('opacity-50');
-    };
-
-    // If you plan to add a hamburger menu button for mobile, uncomment and use this:
-    // if (mobileMenuButton) {
-    //     mobileMenuButton.addEventListener('click', toggleMenu);
-    // }
-
-    // For now, attaching the toggle to navigation links in mobile menu to close on click
-    if (mobileMenuOverlay) {
-        mobileMenuOverlay.addEventListener('click', toggleMenu);
-    }
-    // Close mobile menu when a main link or sub-link is clicked
-    navLinksMobile.forEach(link => {
-        link.addEventListener('click', toggleMenu);
-    });
-    navSubLinksMobile.forEach(link => {
-        link.addEventListener('click', toggleMenu);
-    });
-
-
-    // --- Floating Table of Contents Logic ---
+    // --- Side Menu and Floating TOC Logic ---
+    const hamburgerBtn = document.getElementById('hamburger-menu-button');
+    const closeSideMenuBtn = document.getElementById('close-side-menu');
+    const sideMenu = document.getElementById('side-menu');
+    const sideMenuOverlay = document.getElementById('side-menu-overlay');
+    const sideNavList = document.getElementById('side-nav-list');
     const floatingNavList = document.getElementById('floating-nav-list');
-    const floatingTocSections = [
-        { id: 'gioi-thieu', text: 'Giới thiệu', icon: '<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>' },
-        { id: 'yeu-to-anh-huong', text: 'Yếu tố ảnh hưởng', icon: '<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>' },
+
+    // Section definitions for both menus
+    const menuSections = [
+        { id: 'gioi-thieu', text: 'Giới thiệu', icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>' },
+        { id: 've-chung-toi', text: 'Về chúng tôi', icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>' }, // Icon for 'About Us'
+        { id: 'yeu-to-anh-huong', text: 'Yếu tố ảnh hưởng', icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>' },
         { 
-            id: 'bao-gia', text: 'Báo giá', icon: '<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></path></svg>',
+            id: 'bao-gia', text: 'Báo giá', icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></path></svg>',
             subItems: [
                 { id: 'bao-gia-xd-tron-goi', text: 'XD Trọn Gói' },
                 { id: 'bao-gia-thiet-ke-kien-truc', text: 'Thiết Kế KT' },
@@ -451,63 +356,71 @@ Cảm ơn.
                 { id: 'bao-gia-xd-phan-hoan-thien', text: 'XD Hoàn Thiện' }
             ]
         },
-        { id: 'cac-goi-xay-dung', text: 'Gói xây dựng', icon: '<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>' },
-        { id: 'luu-y-quan-trong', text: 'Lưu ý quan trọng', icon: '<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>' }
+        { id: 'cac-goi-xay-dung', text: 'Gói xây dựng', icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>' },
+        { id: 'luu-y-quan-trong', text: 'Lưu ý quan trọng', icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>' }
     ];
 
-    floatingTocSections.forEach(section => {
-        const listItem = document.createElement('li');
-        if (section.subItems) {
-            // Main item with sub-menu
-            listItem.innerHTML = `
-                <a href="#${section.id}" class="main-toc-link flex items-center">
-                    ${section.icon}<span>${section.text}</span>
-                </a>
-                <ul class="pl-4 mt-1 space-y-1 text-xs">
-                    ${section.subItems.map(subItem => `
-                        <li><a href="#${subItem.id}" class="sub-toc-link block p-1 rounded-md">${subItem.text}</a></li>
-                    `).join('')}
-                </ul>
-            `;
-        } else {
-            // Regular item
-            listItem.innerHTML = `<a href="#${section.id}" class="flex items-center">${section.icon}<span>${section.text}</span></a>`;
-        }
-        floatingNavList.appendChild(listItem);
-    });
+    // Function to generate menu items (remains unchanged, but will use updated menuSections)
+    const generateMenuItems = (menuListElement, isSideMenu = false) => {
+        menuListElement.innerHTML = ''; // Clear existing items
+        menuSections.forEach(section => {
+            const listItem = document.createElement('li');
+            const linkClass = isSideMenu ? 'active-side-link' : 'active-toc-link';
 
-    const floatingTocLinks = document.querySelectorAll('#floating-nav-list a');
-
-    // Create a new Intersection Observer for the floating TOC to handle active state
-    const tocObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const id = entry.target.getAttribute('id');
-                floatingTocLinks.forEach(link => {
-                    link.classList.remove('active-toc-link');
-                    // Check if it's a direct link to the section
-                    if (link.getAttribute('href') === `#${id}`) {
-                        link.classList.add('active-toc-link');
-                    }
-                    // Check if it's a sub-section of 'bao-gia' and highlight the main 'bao-gia' link
-                    if (id.startsWith('bao-gia-')) {
-                        const mainBaoGiaLink = document.querySelector('#floating-nav-list a[href="#bao-gia"]');
-                        if (mainBaoGiaLink) {
-                            mainBaoGiaLink.classList.add('active-toc-link');
-                        }
-                    }
-                });
+            if (section.subItems) {
+                // Main item with sub-menu
+                listItem.innerHTML = `
+                    <a href="#${section.id}" class="flex items-center ${isSideMenu ? '' : 'main-toc-link'}">
+                        ${section.icon || ''}<span>${section.text}</span>
+                    </a>
+                    <ul class="pl-4 mt-1 space-y-1 ${isSideMenu ? 'text-base' : 'text-xs'}">
+                        ${section.subItems.map(subItem => `
+                            <li><a href="#${subItem.id}" class="block p-1 rounded-md ${isSideMenu ? 'sub-side-link' : 'sub-toc-link'}">${subItem.text}</a></li>
+                        `).join('')}
+                    </ul>
+                `;
+            } else {
+                // Regular item
+                listItem.innerHTML = `<a href="#${section.id}" class="flex items-center">${section.icon || ''}<span>${section.text}</span></a>`;
             }
+            menuListElement.appendChild(listItem);
         });
-    }, { rootMargin: '-50% 0px -50% 0px' }); // Adjust rootMargin as needed for better active state accuracy
+    };
 
-    // Observe all sections, including sub-sections
-    document.querySelectorAll('section').forEach(section => {
-        tocObserver.observe(section);
+    // Populate both menus on load
+    generateMenuItems(sideNavList, true); // Populate side menu
+    generateMenuItems(floatingNavList, false); // Populate floating TOC
+
+    const allSections = document.querySelectorAll('section'); // All observable sections
+    const allSideMenuLinks = document.querySelectorAll('#side-nav-list a');
+    const allFloatingTocLinks = document.querySelectorAll('#floating-nav-list a');
+
+    const toggleSideMenu = () => {
+        sideMenu.classList.toggle('translate-x-full');
+        sideMenuOverlay.classList.toggle('hidden');
+        sideMenuOverlay.classList.toggle('opacity-0');
+        sideMenuOverlay.classList.toggle('opacity-50');
+    };
+
+    hamburgerBtn.addEventListener('click', toggleSideMenu);
+    closeSideMenuBtn.addEventListener('click', toggleSideMenu);
+    sideMenuOverlay.addEventListener('click', toggleSideMenu);
+
+    // Close side menu when a link inside it is clicked
+    allSideMenuLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent default hash jump
+            const targetId = this.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            toggleSideMenu(); // Close the side menu after clicking a link
+        });
     });
 
-    // Handle smooth scrolling for floating TOC links
-    floatingTocLinks.forEach(link => {
+    // Handle smooth scrolling for floating TOC links (already exists, but ensure it works)
+    allFloatingTocLinks.forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href').substring(1);
@@ -516,5 +429,38 @@ Cảm ơn.
                 targetSection.scrollIntoView({ behavior: 'smooth' });
             }
         });
+    });
+
+    // Intersection Observer to highlight active section in both menus
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+
+                // Update side menu links
+                allSideMenuLinks.forEach(link => {
+                    link.classList.remove('active-side-link');
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.classList.add('active-side-link');
+                    } else if (id.startsWith('bao-gia-') && link.getAttribute('href') === '#bao-gia') {
+                        link.classList.add('active-side-link'); // Highlight main 'Báo giá' if sub-section is active
+                    }
+                });
+
+                // Update floating TOC links
+                allFloatingTocLinks.forEach(link => {
+                    link.classList.remove('active-toc-link');
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.classList.add('active-toc-link');
+                    } else if (id.startsWith('bao-gia-') && link.getAttribute('href') === '#bao-gia') {
+                        link.classList.add('active-toc-link'); // Highlight main 'Báo giá' if sub-section is active
+                    }
+                });
+            }
+        });
+    }, { rootMargin: '-30% 0px -70% 0px' }); // Adjust rootMargin for active state accuracy
+
+    allSections.forEach(section => {
+        sectionObserver.observe(section);
     });
 };

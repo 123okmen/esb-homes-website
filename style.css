@@ -1,37 +1,220 @@
-/* Floating Table of Contents specific styles */
-#floating-toc-menu ul li a {
-    /* ... existing styles ... */
+body {
+    font-family: Arial, sans-serif; /* Changed font to Arial */
+    background-color: #0A192F; /* Dark blue background */
+    color: #E0E7FF; /* Light yellow-ish text */
 }
 
+/* Rule to make all headings uppercase */
+h2, h3, h4 {
+    text-transform: uppercase;
+}
+/* Rule to ensure other text remains in its original case (sentence case) */
+p, li, label, .nav-link span, button span, td, input, select, textarea {
+    text-transform: none;
+}
+
+/* Base styles for content cards */
+.content-card {
+    background-color: #ffffff;
+    border: 1px solid #374151; /* Darker border for contrast */
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    color: #3a3a3a; /* Dark text inside cards */
+}
+.content-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.08);
+}
+
+/* Chart container responsiveness */
+.chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 350px;
+    max-height: 450px;
+}
+@media (min-width: 768px) {
+    .chart-container {
+        height: 400px;
+    }
+}
+
+/* Collapsible content animation */
+.collapsible-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease-in-out;
+}
+
+/* Loading spinner animation */
+.loading-spinner {
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #FBBF24; /* Golden yellow spinner */
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    display: none;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Specific styles for elements within content-card to ensure dark text */
+.content-card p,
+.content-card ul,
+.content-card li,
+.content-card label,
+.content-card input,
+.content-card select,
+.content-card textarea,
+.content-card table {
+    color: #3a3a3a;
+}
+.content-card .text-gray-700 {
+    color: #3a3a3a;
+}
+.content-card .font-medium {
+    color: #3a3a3a;
+}
+.content-card .text-sm {
+    color: #4B5563; /* Slightly lighter gray for small text */
+}
+.content-card .text-red-600 {
+    color: #DC2626; /* Red for errors */
+}
+.content-card .bg-gray-50 {
+    background-color: #F9FAFB; /* Light gray for input backgrounds */
+}
+.content-card .text-[#a0522d] { /* Adjusting accent color for headings inside cards */
+    color: #D97706; /* A darker orange/gold for contrast on white */
+}
+.content-card .text-[#d28b5e] { /* Adjusting accent color for subheadings inside cards */
+    color: #FBBF24; /* Golden yellow for contrast on white */
+}
+.content-card .text-gray-800 {
+    color: #1F2937; /* Dark gray for specific text */
+}
+.tag {
+    background-color: #FBBF24; /* Golden yellow tag background */
+    color: #1F2937; /* Dark text on tag */
+}
+
+/* Table styling */
+.table-auto th, .table-auto td {
+    padding: 0.75rem;
+    border: 1px solid #e5e7eb;
+}
+.table-auto th {
+    background-color: #f9fafb;
+    font-weight: 600;
+    text-align: left;
+}
+.table-auto tr:nth-child(even) {
+    background-color: #f9fafb;
+}
+
+/* Floating Table of Contents specific styles (for large screens) */
+#floating-toc-menu ul li a {
+    display: flex; /* Use flex for icon and text alignment */
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.25rem;
+    color: #E0E7FF; /* Light text */
+    transition: all 0.2s ease-in-out;
+    font-size: 0.875rem; /* text-sm */
+    font-weight: 500; /* font-medium */
+}
+#floating-toc-menu ul li a:hover {
+    background-color: rgba(251, 191, 36, 0.2); /* Subtle yellow highlight on hover */
+    color: #FBBF24; /* Golden yellow */
+}
+#floating-toc-menu ul li a.active-toc-link {
+    background-color: #FBBF24; /* Solid golden yellow when active */
+    color: #1F2937; /* Dark text on active */
+    font-weight: 700; /* font-bold */
+}
+#floating-toc-menu ul li svg {
+    margin-right: 0.5rem; /* Space between icon and text */
+    vertical-align: middle; /* Align icon vertically with text */
+    fill: currentColor; /* Inherit color from parent 'a' tag */
+    width: 1rem; /* Ensure icon size for floating menu */
+    height: 1rem; /* Ensure icon size for floating menu */
+}
+
+/* Floating Table of Contents Sub-menu styles */
 #floating-toc-menu ul li ul {
     margin-left: 0.75rem; /* Indent sub-items */
     border-left: 1px solid rgba(255, 255, 255, 0.2); /* Optional: a subtle line */
     padding-left: 0.25rem;
 }
-
 #floating-toc-menu ul li .sub-toc-link {
     font-size: 0.75rem; /* Smaller font for sub-items */
     padding: 0.3rem 0.5rem;
 }
-
 #floating-toc-menu ul li .sub-toc-link:hover {
     background-color: rgba(251, 191, 36, 0.1); /* Lighter hover for sub-items */
     color: #FBBF24;
 }
-
 #floating-toc-menu ul li .sub-toc-link.active-toc-link {
     background-color: rgba(251, 191, 36, 0.3); /* Slightly less prominent active for sub-items */
     color: #FBBF24;
     font-weight: 600;
 }
 
-/* For mobile sub-links, if you want specific styling */
-#mobile-nav ul a {
+/* Side Menu specific styles (for mobile/small screens) */
+#side-menu ul li a {
+    display: flex; /* Use flex for icon and text alignment */
+    align-items: center;
+    padding: 0.75rem 1rem;
+    border-radius: 0.25rem;
     color: #E0E7FF;
     transition: all 0.2s ease;
+    font-size: 1.125rem; /* text-lg */
+    font-weight: 500;
+}
+#side-menu ul li a:hover {
+    background-color: rgba(251, 191, 36, 0.1);
+    color: #FBBF24;
+}
+#side-menu ul li a.active-side-link {
+    background-color: #FBBF24;
+    color: #1F2937;
+    font-weight: 700;
+}
+#side-menu ul li svg {
+    margin-right: 0.75rem; /* Space for icons */
+    fill: currentColor;
+    width: 24px; /* Ensure consistent icon size */
+    height: 24px;
 }
 
-#mobile-nav ul a.active {
+/* Side Menu Sub-menu styles */
+#side-menu ul li ul {
+    padding-left: 1.5rem; /* Indent sub-items */
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+#side-menu ul li ul li a {
+    padding: 0.5rem 1rem; /* Adjust padding for sub-items */
+    font-size: 1rem; /* Smaller font for sub-items */
+}
+#side-menu ul li ul li a.active-side-link {
+    background-color: rgba(251, 191, 36, 0.3); /* Lighter active for sub-items */
     color: #FBBF24;
     font-weight: 600;
+}
+
+/* Overlay style for side menu */
+#side-menu-overlay {
+    background-color: rgba(0, 0, 0, 0); /* Start transparent */
+    transition: opacity 0.3s ease-in-out;
+}
+#side-menu-overlay.opacity-50 {
+    opacity: 0.5;
 }

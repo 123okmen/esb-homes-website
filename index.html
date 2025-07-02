@@ -10,6 +10,27 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
+    <button id="hamburger-menu-button" class="fixed top-6 right-6 z-[60] p-2 bg-[#FBBF24] text-[#1F2937] rounded-md shadow-lg lg:hidden">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+        </svg>
+    </button>
+
+    <div id="side-menu" class="fixed top-0 right-0 h-full w-64 bg-[#1F2937] shadow-lg z-[55] transform translate-x-full transition-transform duration-300 ease-in-out">
+        <div class="p-6">
+            <button id="close-side-menu" class="absolute top-4 right-4 text-[#E0E7FF] hover:text-[#FBBF24]">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                </svg>
+            </button>
+            <h1 class="text-xl font-bold text-[#FBBF24] mb-8 mt-12 text-center">Menu</h1>
+            <ul class="flex flex-col space-y-4" id="side-nav-list">
+                </ul>
+        </div>
+    </div>
+    <div id="side-menu-overlay" class="fixed inset-0 bg-black opacity-0 z-[50] hidden transition-opacity duration-300 ease-in-out"></div>
+
+
     <div id="floating-toc-menu" class="fixed right-4 top-1/2 -translate-y-1/2 bg-[#1F2937] p-2 rounded-lg shadow-lg z-50 hidden lg:block">
         <ul class="space-y-2" id="floating-nav-list">
             </ul>
@@ -36,6 +57,33 @@
                         <h3 class="text-xl font-bold mb-3 text-[#D97706]">Hiểu rõ các yếu tố</h3>
                         <p class="font-medium">Tìm hiểu sâu hơn về những yếu tố chính ảnh hưởng đến tổng chi phí xây dựng nhà phố trọn gói.</p>
                     </div>
+                </div>
+            </section>
+
+            <section id="ve-chung-toi" class="min-h-screen pt-16">
+                <h2 class="text-3xl font-bold mb-4 text-[#FBBF24]">Về ESB Homes</h2>
+                <p class="mb-6 text-lg font-medium">
+                    Tại ESB Homes, chúng tôi cam kết mang đến những giải pháp xây dựng nhà phố trọn gói chất lượng cao, bền vững và thông minh. Với kinh nghiệm dày dặn và đội ngũ chuyên gia tận tâm, chúng tôi tự hào là đối tác đáng tin cậy, biến ước mơ về ngôi nhà hoàn hảo của bạn thành hiện thực.
+                </p>
+                <div class="content-card p-6 mb-6">
+                    <h3 class="text-xl font-bold mb-3 text-[#D97706]">Slogan: Eco-Smart-Build</h3>
+                    <p class="mb-4 font-medium">
+                        Chúng tôi hướng đến việc xây dựng những công trình không chỉ đẹp về kiến trúc, tối ưu về công năng mà còn thân thiện với môi trường và tích hợp công nghệ thông minh.
+                    </p>
+                    <ul class="list-disc list-inside space-y-2 font-medium">
+                        <li><strong>Eco (Thân thiện môi trường):</strong> Sử dụng vật liệu bền vững, tối ưu hóa năng lượng, giảm thiểu tác động đến môi trường.</li>
+                        <li><strong>Smart (Thông minh):</strong> Ứng dụng công nghệ nhà thông minh, thiết kế tối ưu không gian và tiện ích.</li>
+                        <li><strong>Build (Xây dựng):</strong> Quy trình thi công chuyên nghiệp, đảm bảo chất lượng và tiến độ.</li>
+                    </ul>
+                </div>
+                <div class="content-card p-6">
+                    <h3 class="text-xl font-bold mb-3 text-[#D97706]">Địa chỉ Văn phòng</h3>
+                    <p class="font-medium">
+                        14A Đường số 21, Phường Tân Quy, Quận 7, TP. Hồ Chí Minh
+                    </p>
+                    <p class="mt-2 text-sm text-gray-600 font-medium">
+                        (Vui lòng liên hệ trước khi đến để được đón tiếp tốt nhất.)
+                    </p>
                 </div>
             </section>
 
@@ -414,68 +462,6 @@
             copyright by Esb homes
         </footer>
     </main>
-
-    <nav class="nav-bar fixed bottom-0 left-0 right-0 h-20 p-4 hidden lg:flex items-center justify-center z-50">
-        <ul class="flex space-x-8" id="desktop-nav">
-            <li><a href="#gioi-thieu" class="nav-link flex flex-col items-center p-2 rounded-md">
-                <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
-                <span class="text-sm font-semibold">Giới thiệu</span>
-            </a></li>
-            <li><a href="#yeu-to-anh-huong" class="nav-link flex flex-col items-center p-2 rounded-md">
-                <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>
-                <span class="text-sm font-semibold">Yếu tố</span>
-            </a></li>
-            <li>
-                <a href="#bao-gia" class="nav-link flex flex-col items-center p-2 rounded-md">
-                    <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></path></svg>
-                    <span class="text-sm font-semibold">Báo giá</span>
-                </a>
-                </li>
-            <li><a href="#cac-goi-xay-dung" class="nav-link flex flex-col items-center p-2 rounded-md">
-                <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
-                <span class="text-sm font-semibold">Gói xây dựng</span>
-            </a></li>
-            <li><a href="#luu-y-quan-trong" class="nav-link flex flex-col items-center p-2 rounded-md">
-                <svg class="w-6 h-6 mb-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>
-                <span class="text-sm font-semibold">Lưu ý</span>
-            </a></li>
-        </ul>
-    </nav>
-
-    <div id="mobile-menu" class="fixed bottom-0 left-0 w-full h-1/2 bg-[#1F2937] shadow-lg p-5 z-40 transform translate-y-full transition-transform duration-300 ease-in-out lg:hidden">
-        <h1 class="text-xl font-bold text-[#FBBF24] mb-8 mt-4 text-center">Ước tính Chi phí</h1>
-        <ul class="flex flex-col items-center justify-center h-full space-y-4" id="mobile-nav">
-            <li><a href="#gioi-thieu" class="nav-link flex flex-col items-center p-2 rounded-md">
-                <svg class="w-8 h-8 mb-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>
-                <span class="text-md font-semibold">Giới thiệu</span>
-            </a></li>
-            <li><a href="#yeu-to-anh-huong" class="nav-link flex flex-col items-center p-2 rounded-md">
-                <svg class="w-8 h-8 mb-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>
-                <span class="text-md font-semibold">Yếu tố Ảnh hưởng</span>
-            </a></li>
-            <li>
-                <a href="#bao-gia" class="nav-link flex flex-col items-center p-2 rounded-md">
-                    <svg class="w-8 h-8 mb-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></path></svg>
-                    <span class="text-md font-semibold">Báo giá</span>
-                </a>
-                <ul class="pl-4 mt-2 space-y-2 text-sm text-gray-300">
-                    <li><a href="#bao-gia-xd-tron-goi" class="nav-link-sub block p-1 rounded-md">Báo Giá XD Trọn Gói</a></li>
-                    <li><a href="#bao-gia-thiet-ke-kien-truc" class="nav-link-sub block p-1 rounded-md">Báo Giá Thiết Kế Kiến Trúc</a></li>
-                    <li><a href="#bao-gia-xd-phan-tho" class="nav-link-sub block p-1 rounded-md">Báo Giá Xây Dựng Phần Thô</a></li>
-                    <li><a href="#bao-gia-xd-phan-hoan-thien" class="nav-link-sub block p-1 rounded-md">Báo Giá XD Phần Hoàn Thiện</a></li>
-                </ul>
-            </li>
-            <li><a href="#cac-goi-xay-dung" class="nav-link flex flex-col items-center p-2 rounded-md">
-                <svg class="w-8 h-8 mb-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>
-                <span class="text-md font-semibold">Các Gói Xây dựng</span>
-            </a></li>
-            <li><a href="#luu-y-quan-trong" class="nav-link flex flex-col items-center p-2 rounded-md">
-                <svg class="w-8 h-8 mb-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>
-                <span class="text-md font-semibold">Lưu ý Quan trọng</span>
-            </a></li>
-        </ul>
-    </div>
-    <div id="mobile-menu-overlay" class="fixed inset-0 bg-black opacity-0 z-30 transition-opacity duration-300 ease-in-out hidden"></div>
 
 <script src="script.js"></script>
 
