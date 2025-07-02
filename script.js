@@ -160,7 +160,7 @@ window.onload = function() {
             const style = styleSelect.value;
             const finish = finishSelect.value;
             const foundationType = foundationTypeSelect.value;
-            const mezzanineOption = mezzanineOptionSelect.value;
+            const mezzanineOption = mezzanineOptionOption.value;
             const rooftopOption = rooftopOptionSelect.value;
             const roofType = roofTypeSelect.value;
 
@@ -345,7 +345,7 @@ Cảm ơn.
     // Section definitions for both menus
     const menuSections = [
         { id: 'gioi-thieu', text: 'Giới thiệu', icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path></svg>' },
-        { id: 've-chung-toi', text: 'Về chúng tôi', icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>' }, // Icon for 'About Us'
+        { id: 've-chung-toi', text: 'Về chúng tôi', icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path></svg>' },
         { id: 'yeu-to-anh-huong', text: 'Yếu tố ảnh hưởng', icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>' },
         { 
             id: 'bao-gia', text: 'Báo giá', icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"></path></svg>',
@@ -357,7 +357,8 @@ Cảm ơn.
             ]
         },
         { id: 'cac-goi-xay-dung', text: 'Gói xây dựng', icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"></path></svg>' },
-        { id: 'luu-y-quan-trong', text: 'Lưu ý quan trọng', icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>' }
+        { id: 'luu-y-quan-trong', text: 'Lưu ý quan trọng', icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"></path></svg>' },
+        { id: 'lien-he', text: 'Liên hệ', icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg>' } // Icon for 'Contact'
     ];
 
     // Function to generate menu items (remains unchanged, but will use updated menuSections)
