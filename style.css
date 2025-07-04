@@ -1,33 +1,33 @@
 body {
-    font-family: Arial, sans-serif; /* Changed font to Arial */
-    background-color: #0A192F; /* Dark blue background */
-    color: #E0E7FF; /* Light yellow-ish text */
+    font-family: Arial, sans-serif;
+    background-color: #0A192F;
+    color: #E0E7FF;
 }
 
-/* Rule to make all headings uppercase */
-h2, h3, h4 {
+/* HEADINGS */
+h1, h2, h3, h4 {
     text-transform: uppercase;
 }
-/* Rule to ensure other text remains in its original case (sentence case) */
-p, li, label, .nav-link span, button span, td, input, select, textarea {
+p, li, label, .nav-link span, button span, td, input, select, textarea, strong {
+    text-transform: none;
+}
+footer a span {
     text-transform: none;
 }
 
-/* Base styles for content cards */
+/* --- Base Styles --- */
 .content-card {
     background-color: #ffffff;
-    border: 1px solid #374151; /* Darker border for contrast */
+    border: 1px solid #374151;
     border-radius: 0.75rem;
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.06);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    color: #3a3a3a; /* Dark text inside cards */
+    color: #3a3a3a;
 }
 .content-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.08);
 }
-
-/* Chart container responsiveness */
 .chart-container {
     position: relative;
     width: 100%;
@@ -42,18 +42,14 @@ p, li, label, .nav-link span, button span, td, input, select, textarea {
         height: 400px;
     }
 }
-
-/* Collapsible content animation */
 .collapsible-content {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.5s ease-in-out;
 }
-
-/* Loading spinner animation */
 .loading-spinner {
     border: 4px solid #f3f3f3;
-    border-top: 4px solid #FBBF24; /* Golden yellow spinner */
+    border-top: 4px solid #FBBF24;
     border-radius: 50%;
     width: 30px;
     height: 30px;
@@ -64,8 +60,6 @@ p, li, label, .nav-link span, button span, td, input, select, textarea {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-
-/* Specific styles for elements within content-card to ensure dark text */
 .content-card p,
 .content-card ul,
 .content-card li,
@@ -76,35 +70,32 @@ p, li, label, .nav-link span, button span, td, input, select, textarea {
 .content-card table {
     color: #3a3a3a;
 }
-.content-card .text-gray-700 {
-    color: #3a3a3a;
-}
+.content-card .text-gray-700,
 .content-card .font-medium {
     color: #3a3a3a;
 }
 .content-card .text-sm {
-    color: #4B5563; /* Slightly lighter gray for small text */
+    color: #4B5563;
 }
 .content-card .text-red-600 {
-    color: #DC2626; /* Red for errors */
+    color: #DC2626;
 }
 .content-card .bg-gray-50 {
-    background-color: #F9FAFB; /* Light gray for input backgrounds */
+    background-color: #F9FAFB;
 }
-.content-card .text-[#a0522d] { /* Adjusting accent color for headings inside cards */
-    color: #D97706; /* A darker orange/gold for contrast on white */
+.content-card .text-[#a0522d] {
+    color: #D97706;
 }
-.content-card .text-[#d28b5e] { /* Adjusting accent color for subheadings inside cards */
-    color: #FBBF24; /* Golden yellow for contrast on white */
+.content-card .text-[#d28b5e] {
+    color: #FBBF24;
 }
 .content-card .text-gray-800 {
-    color: #1F2937; /* Dark gray for specific text */
+    color: #1F2937;
 }
 .tag {
-    background-color: #FBBF24; /* Golden yellow tag background */
-    color: #1F2937; /* Dark text on tag */
+    background-color: #FBBF24;
+    color: #1F2937;
 }
-
 /* Table styling */
 .table-auto th, .table-auto td {
     padding: 0.75rem;
@@ -119,66 +110,47 @@ p, li, label, .nav-link span, button span, td, input, select, textarea {
     background-color: #f9fafb;
 }
 
-/* Floating Table of Contents specific styles (for large screens) */
-#floating-toc-menu ul li a {
-    display: flex; /* Use flex for icon and text alignment */
-    align-items: center;
+/* --- Header & Navigation --- */
+#main-header .flex-shrink-0 img {
+    height: 48px;
+    transition: height 0.3s;
+}
+@media (max-width: 1023px) {
+    #main-header .flex-shrink-0 img {
+        height: 40px;
+    }
+}
+#desktop-nav-list li a {
+    display: block;
     padding: 0.5rem 0.75rem;
     border-radius: 0.25rem;
-    color: #E0E7FF; /* Light text */
+    color: #E0E7FF;
     transition: all 0.2s ease-in-out;
-    font-size: 0.875rem; /* text-sm */
-    font-weight: 500; /* font-medium */
+    font-size: 1rem;
+    font-weight: 500;
 }
-#floating-toc-menu ul li a:hover {
-    background-color: rgba(251, 191, 36, 0.2); /* Subtle yellow highlight on hover */
-    color: #FBBF24; /* Golden yellow */
-}
-#floating-toc-menu ul li a.active-toc-link {
-    background-color: #FBBF24; /* Solid golden yellow when active */
-    color: #1F2937; /* Dark text on active */
-    font-weight: 700; /* font-bold */
-}
-#floating-toc-menu ul li svg {
-    margin-right: 0.5rem; /* Space between icon and text */
-    vertical-align: middle; /* Align icon vertically with text */
-    fill: currentColor; /* Inherit color from parent 'a' tag */
-    width: 1rem; /* Ensure icon size for floating menu */
-    height: 1rem; /* Ensure icon size for floating menu */
-}
-
-/* Floating Table of Contents Sub-menu styles */
-#floating-toc-menu ul li ul {
-    margin-left: 0.75rem; /* Indent sub-items */
-    border-left: 1px solid rgba(255, 255, 255, 0.2); /* Optional: a subtle line */
-    padding-left: 0.25rem;
-}
-#floating-toc-menu ul li .sub-toc-link {
-    font-size: 0.75rem; /* Smaller font for sub-items */
-    padding: 0.3rem 0.5rem;
-}
-#floating-toc-menu ul li .sub-toc-link:hover {
-    background-color: rgba(251, 191, 36, 0.1); /* Lighter hover for sub-items */
+#desktop-nav-list li a:hover {
+    background-color: rgba(251, 191, 36, 0.2);
     color: #FBBF24;
 }
-#floating-toc-menu ul li .sub-toc-link.active-toc-link {
-    background-color: rgba(251, 191, 36, 0.3); /* Slightly less prominent active for sub-items */
-    color: #FBBF24;
-    font-weight: 600;
+#desktop-nav-list li a.active-nav-link {
+    background-color: #FBBF24;
+    color: #1F2937;
+    font-weight: 700;
 }
 
-/* Side Menu specific styles (for mobile/small screens) */
+/* Side Menu (mobile) */
 #side-menu ul {
-    padding-bottom: 2rem; /* Add padding at the bottom for scrolling */
+    padding-bottom: 2rem;
 }
 #side-menu ul li a {
-    display: flex; /* Use flex for icon and text alignment */
+    display: flex;
     align-items: center;
-    padding: 0.85rem 1.25rem; /* Increased padding for better touch targets */
+    padding: 0.85rem 1.25rem;
     border-radius: 0.25rem;
     color: #E0E7FF;
     transition: all 0.2s ease;
-    font-size: 1.125rem; /* text-lg */
+    font-size: 1.125rem;
     font-weight: 500;
 }
 #side-menu ul li a:hover {
@@ -191,38 +163,57 @@ p, li, label, .nav-link span, button span, td, input, select, textarea {
     font-weight: 700;
 }
 #side-menu ul li svg {
-    margin-right: 0.75rem; /* Space for icons */
+    margin-right: 0.75rem;
     fill: currentColor;
-    width: 24px; /* Ensure consistent icon size */
+    width: 24px;
     height: 24px;
 }
-
-/* Side Menu Sub-menu styles */
 #side-menu ul li ul {
-    padding-left: 1.8rem; /* Increased indent for sub-items */
+    padding-left: 1.8rem;
     margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 }
 #side-menu ul li ul li a {
-    padding: 0.6rem 1rem; /* Adjust padding for sub-items */
-    font-size: 1rem; /* Smaller font for sub-items */
-    color: #CBD5E0; /* Slightly lighter text for sub-items */
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    color: #CBD5E0;
 }
 #side-menu ul li ul li a:hover {
-    background-color: rgba(251, 191, 36, 0.08); /* Even lighter hover for sub-items */
+    background-color: rgba(251, 191, 36, 0.08);
     color: #FBBF24;
 }
 #side-menu ul li ul li a.active-side-link {
-    background-color: rgba(251, 191, 36, 0.2); /* Lighter active for sub-items */
+    background-color: rgba(251, 191, 36, 0.2);
     color: #FBBF24;
     font-weight: 600;
 }
-
-/* Overlay style for side menu */
 #side-menu-overlay {
-    background-color: rgba(0, 0, 0, 0); /* Start transparent */
-    transition: opacity 0.3s ease-in-out;
+    background-color: rgba(0,0,0,0);
+    transition: opacity 0.3s;
 }
 #side-menu-overlay.opacity-50 {
     opacity: 0.5;
 }
+/* Header shrink on scroll */
+#main-header.header-scrolled {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+#main-header.header-scrolled .flex-shrink-0 img {
+    height: 32px;
+}
+
+/* Hero animation */
+@keyframes fadeInFromBottom {
+    from { opacity: 0; transform: translateY(20px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+.animate-fade-in-up {
+    animation: fadeInFromBottom 0.8s ease-out forwards;
+    opacity: 0;
+}
+.delay-200 { animation-delay: 0.2s; }
+.delay-400 { animation-delay: 0.4s; }
+
+/* Utilities */
+.overflow-hidden { overflow: hidden !important; }
