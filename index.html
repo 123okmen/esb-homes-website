@@ -63,10 +63,7 @@
         <div class="h-20 md:h-24"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 pb-24 lg:pb-24">
 
-            <!-- HERO, INTRO, ABOUT, FACTORS, ESTIMATOR, ... -->
-            <!-- To save space, keep your content sections as they were. All logic for menu/scroll is now in script.js. -->
-
-            <!-- Example of a section with an id (required for menu scroll/active) -->
+            <!-- HERO SECTION -->
             <section id="hero-section" class="relative bg-cover bg-center h-[50vh] md:h-[60vh] flex items-center justify-center text-center rounded-lg shadow-lg" style="background-image: url('images/hero_background.jpg');">
                 <div class="absolute inset-0 bg-black opacity-60 rounded-lg"></div>
                 <div class="relative z-10 text-white p-4">
@@ -76,13 +73,17 @@
                     <p class="text-lg md:text-xl font-medium mb-8 animate-fade-in-up delay-200">
                         Minh bạch - Uy tín - Chất lượng
                     </p>
+                    <!-- Đã fix: chuyển href về đúng id nơi có form estimator -->
                     <a href="#bao-gia-xd-tron-goi" class="inline-block bg-[#FBBF24] text-[#1F2937] font-bold py-3 px-8 rounded-full hover:bg-[#FCD34D] transition-colors duration-300 transform hover:scale-105 animate-fade-in-up delay-400">
                         Bắt đầu ước tính
                     </a>
                 </div>
             </section>
 
-            <!-- ... Các section khác giữ nguyên, mỗi section nên có id phù hợp với menu. -->
+            <!-- Các SECTION khác giữ nguyên cấu trúc, mỗi mục có id khớp với menu/submenu
+                 (ví dụ: id="gioi-thieu", id="ve-chung-toi", id="yeu-to-anh-huong", v.v.) -->
+
+            <!-- ...Các section nội dung khác... -->
 
         </div>
     </main>
