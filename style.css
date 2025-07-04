@@ -2,13 +2,13 @@ body {
     font-family: Arial, sans-serif;
     background-color: #0A192F;
     color: #E0E7FF;
-    /* Modern fade-in for whole page */
     animation: fadeBodyIn 1s cubic-bezier(.35,1.25,.38,1.01);
 }
 @keyframes fadeBodyIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
+
 /* HEADINGS */
 h1, h2, h3, h4 { text-transform: uppercase; }
 p, li, label, .nav-link span, button span, td, input, select, textarea, strong { text-transform: none; }
@@ -31,7 +31,6 @@ footer a span { text-transform: none; }
     background: linear-gradient(120deg,#fff 60%,#fbbf24bb 100%);
 }
 .content-card::before {
-    /* Subtle animated construction stripes on hover */
     content: '';
     pointer-events: none;
     position: absolute;
@@ -165,14 +164,49 @@ h2::after, h3::after {
     to   { width: 60px; opacity: 0.85;}
 }
 
-/* --- Contact card hover --- */
-#contact-section .content-card a {
-    transition: box-shadow .18s, background .21s, color .15s, transform .18s;
-    box-shadow: 0 0 0 0 transparent;
+/* --- Contact Section Gradient Card --- */
+.contact-gradient-card {
+  background: repeating-linear-gradient(
+    120deg,
+    #fffbe3 0 24px,
+    #FFF6D4 24px 48px
+  ), linear-gradient(120deg,#fffbe3 45%,#fbbf2477 100%);
+  box-shadow: 0 6px 32px -4px #fbbf2425, 0 2px 6px -2px #0001;
+  border-radius: 2rem;
 }
-#contact-section .content-card a:hover {
-    box-shadow: 0 4px 24px 2px #fbbf242c,0 2px 6px -2px #0002;
-    transform: scale(1.03);
+@media (max-width: 640px) {
+  .contact-gradient-card { padding: 1.25rem; border-radius: 1.1rem; }
+}
+
+/* Contact Box Styles */
+.contact-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  border-radius: 1.1rem;
+  box-shadow: 0 2px 16px 0 #fbbf2415;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.2s, box-shadow 0.18s, transform 0.18s;
+  font-weight: 600;
+  text-decoration: none;
+  outline: none;
+  border: none;
+}
+.contact-box:hover {
+  box-shadow: 0 8px 32px 0 #fbbf244d, 0 2px 12px -2px #0002;
+  transform: translateY(-3px) scale(1.04);
+}
+.contact-box span { line-height: 1.1; }
+@media (max-width: 767px) {
+  .contact-box { min-height: 100px; font-size: 1rem; }
+  .contact-box span { font-size: 1rem; }
+}
+/* Responsive for Email break-all */
+.contact-box .break-all {
+  word-break: break-all;
 }
 
 /* --- Map fade --- */
