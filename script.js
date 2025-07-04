@@ -1,17 +1,17 @@
 window.onload = function() {
-    // Collapsible content for Influencing Factors
+    // --- Collapsible Factors ---
     document.querySelectorAll('#factors-container button').forEach(button => {
         button.addEventListener('click', function() {
-            const content = this.nextElementSibling;
+            const parentDiv = this.closest('.content-card').querySelector('.p-4.pt-0');
+            const content = parentDiv.querySelector('.collapsible-content');
             const icon = this.querySelector('span:last-child');
             if (content.style.maxHeight) {
                 content.style.maxHeight = null;
                 icon.style.transform = 'rotate(0deg)';
             } else {
-                // Close other open items
                 document.querySelectorAll('#factors-container .collapsible-content').forEach(item => {
                     item.style.maxHeight = null;
-                    item.previousElementSibling.querySelector('span:last-child').style.transform = 'rotate(0deg)';
+                    item.closest('.content-card').querySelector('button span:last-child').style.transform = 'rotate(0deg)';
                 });
                 content.style.maxHeight = content.scrollHeight + "px";
                 icon.style.transform = 'rotate(45deg)';
@@ -19,7 +19,7 @@ window.onload = function() {
         });
     });
 
-    // Cost Estimation Logic (remains unchanged)
+    // --- Cost Estimator ---
     const estimatorForm = document.getElementById('estimatorForm');
     const areaInput = document.getElementById('area');
     const floorsInput = document.getElementById('floors');
@@ -51,11 +51,11 @@ window.onload = function() {
                 label: 'Phân bổ Chi phí',
                 data: [0, 0, 0, 0, 0],
                 backgroundColor: [
-                    'rgba(251, 191, 36, 0.7)', /* Golden Yellow */
-                    'rgba(245, 158, 11, 0.7)',  /* Orange-Yellow */
-                    'rgba(217, 119, 6, 0.7)',   /* Darker Orange */
-                    'rgba(180, 83, 9, 0.7)',    /* Brownish Orange */
-                    'rgba(124, 45, 6, 0.7)'     /* Darkest Orange */
+                    'rgba(251, 191, 36, 0.7)',
+                    'rgba(245, 158, 11, 0.7)',
+                    'rgba(217, 119, 6, 0.7)',
+                    'rgba(180, 83, 9, 0.7)',
+                    'rgba(124, 45, 6, 0.7)'
                 ],
                 borderColor: [
                     'rgb(251, 191, 36)',
@@ -73,21 +73,14 @@ window.onload = function() {
             scales: {
                 y: {
                     beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Tỷ lệ (%)',
-                        color: '#3a3a3a'
-                    },
-                    ticks: {
-                        color: '#3a3a3a'
-                    },
-                    grid: {
-                        color: 'rgba(0, 0, 0, 0.1)'
-                    }
+                    title: { display: true, text: 'Tỷ lệ (%)', color: '#3a3a3a' },
+                    ticks: { color: '#3a3a3a' },
+                    grid: { color: 'rgba(0, 0, 0, 0.1)' }
                 },
                 x: {
                     ticks: {
-                        callback: function(value, index, values) {
+                        color: '#3a3a3a',
+                        callback: function(value, index) {
                             const label = this.getLabelForValue(value);
                             if (label.length > 16) {
                                 return label.split(' ').reduce((acc, word) => {
@@ -100,28 +93,19 @@ window.onload = function() {
                                 }, ['']);
                             }
                             return label;
-                        },
-                        color: '#3a3a3a'
+                        }
                     },
-                    grid: {
-                        color: 'rgba(0, 0, 0, 0.1)'
-                    }
+                    grid: { color: 'rgba(0, 0, 0, 0.1)' }
                 }
             },
             plugins: {
-                legend: {
-                    display: false
-                },
+                legend: { display: false },
                 tooltip: {
                     callbacks: {
                         label: function(context) {
                             let label = context.dataset.label || '';
-                            if (label) {
-                                label += ': ';
-                            }
-                            if (context.parsed.y !== null) {
-                                label += context.parsed.y + '%';
-                            }
+                            if (label) label += ': ';
+                            if (context.parsed.y !== null) label += context.parsed.y + '%';
                             return label;
                         }
                     }
@@ -159,16 +143,14 @@ window.onload = function() {
         setTimeout(() => {
             const style = styleSelect.value;
             const finish = finishSelect.value;
-            const foundationType = foundationTypeSelect.value; // Corrected variable name
+            const foundationType = foundationTypeSelect.value;
             const mezzanineOption = mezzanineOptionSelect.value;
             const rooftopOption = rooftopOptionSelect.value;
             const roofType = roofTypeSelect.value;
 
             let baseCostPerSqM = 5000000;
-
             if (style === 'neoclassical') baseCostPerSqM *= 1.2;
             else if (style === 'minimalist') baseCostPerSqM *= 0.95;
-
             if (finish === 'standard') baseCostPerSqM *= 1.15;
             else if (finish === 'premium') baseCostPerSqM *= 1.35;
 
@@ -181,40 +163,36 @@ window.onload = function() {
             let foundationFactor = 1;
             if (foundationType === 'strip') foundationFactor = 1.05;
             else if (foundationType === 'pile') foundationFactor = 1.10;
-            
+
             let mezzanineFactor = (mezzanineOption === 'yes') ? 1.03 : 1;
-            
             let rooftopFactor = (rooftopOption === 'yes') ? 1.02 : 1;
 
             let roofFactor = 1;
             if (roofType === 'thai') roofFactor = 1.05;
             else if (roofType === 'japanese') roofFactor = 1.07;
-            
+
             const totalArea = area * floors;
             const totalEstimatedCost = totalArea * baseCostPerSqM * floorFactor * foundationFactor * mezzanineFactor * rooftopFactor * roofFactor;
 
             lastQuoteData = {
-                area,
-                floors,
-                style: styleSelect.options[styleSelect.selectedIndex].text,
+                area, floors, style: styleSelect.options[styleSelect.selectedIndex].text,
                 finish: finishSelect.options[finishSelect.selectedIndex].text,
                 foundationType: foundationTypeSelect.options[foundationTypeSelect.selectedIndex].text,
                 mezzanineOption: mezzanineOptionSelect.options[mezzanineOptionSelect.selectedIndex].text,
                 rooftopOption: rooftopOptionSelect.options[rooftopOptionSelect.selectedIndex].text,
                 roofType: roofTypeSelect.options[roofTypeSelect.selectedIndex].text,
-                email,
-                totalEstimatedCost
+                email, totalEstimatedCost
             };
 
             estimatedCostDisplay.textContent = `${totalEstimatedCost.toLocaleString('vi-VN')} VNĐ`;
-            
+
             const breakdownPercentages = {
                 'basic':    { rough: 40, finishing: 30, me: 15, design: 10, contingency: 5 },
                 'standard': { rough: 35, finishing: 35, me: 15, design: 10, contingency: 5 },
                 'premium':  { rough: 30, finishing: 40, me: 15, design: 10, contingency: 5 }
             };
             const currentBreakdownPercents = breakdownPercentages[finish];
-            
+
             costBreakdownChart.data.datasets[0].data = Object.values(currentBreakdownPercents);
             costBreakdownChart.update();
 
@@ -269,7 +247,6 @@ window.onload = function() {
                 { stage: 5, description: 'Hoàn thiện, trước khi bàn giao nhà', percentage: 23 },
                 { stage: 6, description: 'Bảo hành công trình (sau khi bàn giao)', percentage: 2 }
             ];
-
             paymentScheduleTableBody.innerHTML = '';
             paymentStages.forEach(item => {
                 const amount = totalEstimatedCost * (item.percentage / 100);
@@ -294,12 +271,9 @@ window.onload = function() {
             alert('Lỗi: Không có dữ liệu báo giá. Vui lòng thực hiện ước tính trước.');
             return;
         }
-
         emailNotification.textContent = 'Đang chuẩn bị mở trình gửi email của bạn...';
         emailNotification.classList.remove('hidden');
-
         const { email, area, floors, style, finish, foundationType, mezzanineOption, rooftopOption, roofType, totalEstimatedCost } = lastQuoteData;
-
         const recipient = 'esb.homes.company@gmail.com';
         const subject = `Yêu cầu Báo giá Xây dựng - ${email}`;
         const body = `
@@ -324,23 +298,21 @@ Tôi muốn yêu cầu báo giá chi tiết dựa trên các thông tin sau:
 Vui lòng liên hệ lại với tôi qua email trên để tư vấn thêm.
 Cảm ơn.
         `.trim().replace(/^\s+/gm, '');
-
         const mailtoLink = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-        
         window.location.href = mailtoLink;
-
         setTimeout(() => {
             emailNotification.classList.add('hidden');
         }, 3000);
     });
 
-    // --- Side Menu and Floating TOC Logic ---
+    // --- Navigation ---
+    const mainHeader = document.getElementById('main-header');
     const hamburgerBtn = document.getElementById('hamburger-menu-button');
     const closeSideMenuBtn = document.getElementById('close-side-menu');
     const sideMenu = document.getElementById('side-menu');
     const sideMenuOverlay = document.getElementById('side-menu-overlay');
+    const desktopNavList = document.getElementById('desktop-nav-list');
     const sideNavList = document.getElementById('side-nav-list');
-    const floatingNavList = document.getElementById('floating-nav-list');
 
     // Section definitions for both menus
     const menuSections = [
@@ -361,120 +333,93 @@ Cảm ơn.
         { id: 'lien-he', text: 'Liên hệ', icon: '<svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"></path></svg>' }
     ];
 
-    // Function to generate menu items
     const generateMenuItems = (menuListElement, isSideMenu = false) => {
-        menuListElement.innerHTML = ''; // Clear existing items
+        menuListElement.innerHTML = '';
         menuSections.forEach(section => {
             const listItem = document.createElement('li');
-            // No need for linkClass here, active state handled by observer
-
+            const mainLinkClass = isSideMenu ? '' : 'nav-link';
             if (section.subItems) {
-                // Main item with sub-menu
                 listItem.innerHTML = `
-                    <a href="#${section.id}" class="flex items-center">
-                        ${section.icon || ''}<span>${section.text}</span>
+                    <a href="#${section.id}" class="flex items-center ${mainLinkClass}">
+                        ${isSideMenu ? (section.icon || '') : ''}<span>${section.text}</span>
                     </a>
-                    <ul class="pl-4 mt-1 space-y-1 ${isSideMenu ? 'text-base' : 'text-xs'}">
+                    <ul class="pl-4 mt-1 space-y-1 ${isSideMenu ? 'text-base' : 'text-sm'}">
                         ${section.subItems.map(subItem => `
-                            <li><a href="#${subItem.id}" class="block p-1 rounded-md ${isSideMenu ? 'sub-side-link' : 'sub-toc-link'}">${subItem.text}</a></li>
+                            <li><a href="#${subItem.id}" class="block p-1 rounded-md ${isSideMenu ? 'sub-side-link' : 'sub-nav-link'}">${subItem.text}</a></li>
                         `).join('')}
                     </ul>
                 `;
             } else {
-                // Regular item
-                listItem.innerHTML = `<a href="#${section.id}" class="flex items-center">${section.icon || ''}<span>${section.text}</span></a>`;
+                listItem.innerHTML = `<a href="#${section.id}" class="flex items-center ${mainLinkClass}">${isSideMenu ? (section.icon || '') : ''}<span>${section.text}</span></a>`;
             }
             menuListElement.appendChild(listItem);
         });
     };
 
-    // Populate both menus on load
-    generateMenuItems(sideNavList, true); // Populate side menu
-    generateMenuItems(floatingNavList, false); // Populate floating TOC
+    generateMenuItems(desktopNavList, false);
+    generateMenuItems(sideNavList, true);
 
-    const allSections = document.querySelectorAll('section'); // All observable sections
-    const allSideMenuLinks = document.querySelectorAll('#side-nav-list a'); // Select all links including sub-links
-    const allFloatingTocLinks = document.querySelectorAll('#floating-nav-list a'); // Select all links including sub-links
+    // Event listeners for nav menu (desktop & mobile)
+    function menuScrollHandler(event, closeMenuOnMobile) {
+        event.preventDefault();
+        const targetId = event.currentTarget.getAttribute('href').substring(1);
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) targetSection.scrollIntoView({ behavior: 'smooth' });
+        if (closeMenuOnMobile) toggleSideMenu();
+    }
+    // Attach scroll for desktop
+    document.querySelectorAll('#desktop-nav-list a').forEach(link => {
+        link.addEventListener('click', function(e) { menuScrollHandler(e, false); });
+    });
+    // Attach scroll for side (mobile)
+    document.querySelectorAll('#side-nav-list a').forEach(link => {
+        link.addEventListener('click', function(e) { menuScrollHandler(e, true); });
+    });
 
+    // Side menu logic
     const toggleSideMenu = () => {
         sideMenu.classList.toggle('translate-x-full');
         sideMenuOverlay.classList.toggle('hidden');
         sideMenuOverlay.classList.toggle('opacity-0');
         sideMenuOverlay.classList.toggle('opacity-50');
-        document.body.classList.toggle('overflow-hidden'); // Prevent body scroll when menu is open
+        document.body.classList.toggle('overflow-hidden');
     };
-
     hamburgerBtn.addEventListener('click', toggleSideMenu);
     closeSideMenuBtn.addEventListener('click', toggleSideMenu);
     sideMenuOverlay.addEventListener('click', toggleSideMenu);
 
-    // Close side menu when a link inside it is clicked
-    allSideMenuLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault(); // Prevent default hash jump
-            const targetId = this.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
-            if (targetSection) {
-                targetSection.scrollIntoView({ behavior: 'smooth' });
-            }
-            toggleSideMenu(); // Close the side menu after clicking a link
-        });
-    });
-
-    // Handle smooth scrolling for floating TOC links (already exists, but ensure it works)
-    allFloatingTocLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            const targetSection = document.getElementById(targetId);
-            if (targetSection) {
-                targetSection.scrollIntoView({ behavior: 'smooth' });
-            }
-        });
-    });
-
-    // Intersection Observer to highlight active section in both menus
+    // Section active highlight logic
+    const allSections = document.querySelectorAll('section');
+    const allDesktopNavLinks = document.querySelectorAll('#desktop-nav-list a');
+    const allSideMenuLinks = document.querySelectorAll('#side-nav-list a');
     const sectionObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const id = entry.target.getAttribute('id');
-
-                // Update side menu links
-                allSideMenuLinks.forEach(link => {
-                    link.classList.remove('active-side-link');
-                    // Check if it's a direct link to the section
+                allDesktopNavLinks.forEach(link => {
+                    link.classList.remove('active-nav-link');
                     if (link.getAttribute('href') === `#${id}`) {
-                        link.classList.add('active-side-link');
-                    }
-                    // Check if it's a sub-section of 'bao-gia' and highlight the main 'bao-gia' link
-                    if (id.startsWith('bao-gia-')) {
-                        const mainBaoGiaLink = document.querySelector('#side-nav-list a[href="#bao-gia"]');
-                        if (mainBaoGiaLink) {
-                            mainBaoGiaLink.classList.add('active-side-link');
-                        }
+                        link.classList.add('active-nav-link');
+                    } else if (id.startsWith('bao-gia-') && link.getAttribute('href') === '#bao-gia') {
+                        link.classList.add('active-nav-link');
                     }
                 });
-
-                // Update floating TOC links
-                allFloatingTocLinks.forEach(link => {
-                    link.classList.remove('active-toc-link');
-                    // Check if it's a direct link to the section
+                allSideMenuLinks.forEach(link => {
+                    link.classList.remove('active-side-link');
                     if (link.getAttribute('href') === `#${id}`) {
-                        link.classList.add('active-toc-link');
-                    }
-                    // Check if it's a sub-section of 'bao-gia' and highlight the main 'bao-gia' link
-                    if (id.startsWith('bao-gia-')) {
-                        const mainBaoGiaLink = document.querySelector('#floating-nav-list a[href="#bao-gia"]');
-                        if (mainBaoGiaLink) {
-                            mainBaoGiaLink.classList.add('active-toc-link');
-                        }
+                        link.classList.add('active-side-link');
+                    } else if (id.startsWith('bao-gia-') && link.getAttribute('href') === '#bao-gia') {
+                        link.classList.add('active-side-link');
                     }
                 });
             }
         });
-    }, { rootMargin: '-30% 0px -70% 0px' }); // Adjust rootMargin for active state accuracy
+    }, { rootMargin: '-30% 0px -70% 0px' });
+    allSections.forEach(section => { sectionObserver.observe(section); });
 
-    allSections.forEach(section => {
-        sectionObserver.observe(section);
+    // Header shrink on scroll
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) mainHeader.classList.add('header-scrolled');
+        else mainHeader.classList.remove('header-scrolled');
     });
 };
