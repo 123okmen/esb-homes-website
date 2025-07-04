@@ -166,7 +166,6 @@ window.onload = function() {
 
             let mezzanineFactor = (mezzanineOption === 'yes') ? 1.03 : 1;
             let rooftopFactor = (rooftopOption === 'yes') ? 1.02 : 1;
-
             let roofFactor = 1;
             if (roofType === 'thai') roofFactor = 1.05;
             else if (roofType === 'japanese') roofFactor = 1.07;
