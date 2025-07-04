@@ -54,6 +54,14 @@
             <h2 class="text-2xl font-bold mb-6 text-[#FBBF24] text-center">Công cụ Ước tính Chi phí Xây dựng</h2>
             <form id="estimatorForm">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <!-- Thêm chọn loại công trình -->
+                    <div>
+                        <label for="building_type" class="block text-sm font-medium mb-1">Loại công trình:</label>
+                        <select id="building_type" class="w-full p-2 border border-gray-300 rounded-md focus:ring-[#FBBF24] focus:border-[#FBBF24]">
+                            <option value="nhapho">Nhà phố</option>
+                            <option value="bietthu">Biệt thự</option>
+                        </select>
+                    </div>
                     <div>
                         <label for="area" class="block text-sm font-medium mb-1">Diện tích sàn (m²):</label>
                         <input type="number" id="area" class="w-full p-2 border border-gray-300 rounded-md focus:ring-[#FBBF24] focus:border-[#FBBF24]" placeholder="VD: 80" min="20" max="500" required>
@@ -73,8 +81,8 @@
                     <div>
                         <label for="finish" class="block text-sm font-medium mb-1">Mức hoàn thiện:</label>
                         <select id="finish" class="w-full p-2 border border-gray-300 rounded-md focus:ring-[#FBBF24] focus:border-[#FBBF24]">
-                            <option value="basic">Cơ bản</option>
-                            <option value="standard">Trung bình</option>
+                            <option value="basic">Cơ bản (Thông dụng)</option>
+                            <option value="standard">Trung bình (Thông dụng)</option>
                             <option value="premium">Cao cấp</option>
                         </select>
                     </div>
@@ -127,36 +135,37 @@
                         <canvas id="costBreakdownChart"></canvas>
                     </div>
                 </div>
+                <!-- Bảng chi tiết từng phần sẽ được script tự động thêm vào đây -->
             </div>
         </div>
     </section>
 
     <!-- LIÊN HỆ -->
-   <section id="contact-section" class="max-w-4xl mx-auto py-14 px-4">
-  <div class="contact-gradient-card p-8 shadow-2xl text-center rounded-3xl">
-    <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-[#FBBF24] tracking-wide">LIÊN HỆ TƯ VẤN &amp; BÁO GIÁ MIỄN PHÍ</h2>
-    <div class="flex justify-center mb-7">
-      <span class="inline-block w-20 h-2 rounded bg-gradient-to-r from-[#FBBF24] via-[#fcd34d] to-[#FBBF24]"></span>
-    </div>
-    <p class="mb-8 text-lg font-medium text-gray-800">Bạn cần tư vấn chi tiết hoặc muốn nhận báo giá trọn gói?<br>
-      Gọi hotline, Zalo hoặc gửi email cho <b>ESB Homes</b> ngay!
-    </p>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-7">
-      <a href="tel:+84899618286" class="contact-box bg-[#FBBF24] hover:bg-[#fcd34d] text-[#26364D] transition">
-        <span class="block text-xl font-bold mb-1">Hotline:</span>
-        <span class="block text-2xl font-extrabold tracking-wide">0899 618 286</span>
-      </a>
-      <a href="https://zalo.me/0772634611" target="_blank" class="contact-box bg-[#3977F5] hover:bg-[#255ED6] text-white transition">
-        <span class="block text-xl font-bold mb-1">Zalo:</span>
-        <span class="block text-2xl font-extrabold tracking-wide">0772 634 611</span>
-      </a>
-      <a href="mailto:esb.homes.company@gmail.com" class="contact-box bg-[#3977F5] hover:bg-[#255ED6] text-white transition">
-        <span class="block text-xl font-bold mb-1">Email:</span>
-        <span class="block text-lg font-extrabold break-all">esb.homes.company@gmail.com</span>
-      </a>
-    </div>
-  </div>
-</section>
+    <section id="contact-section" class="max-w-4xl mx-auto py-14 px-4">
+      <div class="contact-gradient-card p-8 shadow-2xl text-center rounded-3xl">
+        <h2 class="text-3xl md:text-4xl font-extrabold mb-4 text-[#FBBF24] tracking-wide">LIÊN HỆ TƯ VẤN &amp; BÁO GIÁ MIỄN PHÍ</h2>
+        <div class="flex justify-center mb-7">
+          <span class="inline-block w-20 h-2 rounded bg-gradient-to-r from-[#FBBF24] via-[#fcd34d] to-[#FBBF24]"></span>
+        </div>
+        <p class="mb-8 text-lg font-medium text-gray-800">Bạn cần tư vấn chi tiết hoặc muốn nhận báo giá trọn gói?<br>
+          Gọi hotline, Zalo hoặc gửi email cho <b>ESB Homes</b> ngay!
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-7">
+          <a href="tel:+84899618286" class="contact-box bg-[#FBBF24] hover:bg-[#fcd34d] text-[#26364D] transition">
+            <span class="block text-xl font-bold mb-1">Hotline:</span>
+            <span class="block text-2xl font-extrabold tracking-wide">0899 618 286</span>
+          </a>
+          <a href="https://zalo.me/0772634611" target="_blank" class="contact-box bg-[#3977F5] hover:bg-[#255ED6] text-white transition">
+            <span class="block text-xl font-bold mb-1">Zalo:</span>
+            <span class="block text-2xl font-extrabold tracking-wide">0772 634 611</span>
+          </a>
+          <a href="mailto:esb.homes.company@gmail.com" class="contact-box bg-[#3977F5] hover:bg-[#255ED6] text-white transition">
+            <span class="block text-xl font-bold mb-1">Email:</span>
+            <span class="block text-lg font-extrabold break-all">esb.homes.company@gmail.com</span>
+          </a>
+        </div>
+      </div>
+    </section>
 
     <!-- ĐỊA CHỈ & BẢN ĐỒ -->
     <section class="max-w-3xl mx-auto py-12 px-4">
