@@ -8,94 +8,165 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
-<body class="flex flex-col min-h-screen">
+<body class="flex flex-col min-h-screen bg-[#0A192F] text-[#E0E7FF]">
 
-    <!-- Header -->
-    <header id="main-header" class="fixed top-0 left-0 right-0 bg-[#0A192F] shadow-lg z-50 transition-all duration-300 ease-in-out py-4">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
-            <div class="flex-shrink-0">
-                <img src="esb-homes-logo.png" alt="ESB Homes Logo" class="h-12 transition-all duration-300 ease-in-out">
-            </div>
-            <!-- Desktop Navigation -->
-            <nav class="hidden lg:block">
-                <ul class="flex space-x-6" id="desktop-nav-list">
-                    <!-- Menu items will be injected by script.js -->
-                </ul>
-            </nav>
-            <!-- Hamburger (mobile) -->
-            <button id="hamburger-menu-button" class="lg:hidden p-2 bg-[#FBBF24] text-[#1F2937] rounded-md shadow-md">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                </svg>
-            </button>
+    <!-- HERO -->
+    <section id="hero-section" class="relative bg-cover bg-center h-[80vh] flex items-center justify-center text-center rounded-b-3xl shadow-lg" style="background-image: url('images/hero_background.jpg');">
+        <div class="absolute inset-0 bg-black opacity-70 rounded-b-3xl"></div>
+        <div class="relative z-10 text-white p-4 max-w-2xl mx-auto">
+            <img src="esb-homes-logo.png" alt="ESB Homes Logo" class="mx-auto h-16 mb-6 animate-fade-in-up" style="background:rgba(10,25,47,0.7);border-radius:1.5rem;">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 animate-fade-in-up">
+                Xây dựng Nhà phố Trọn Gói <span class="text-[#FBBF24]">ESB Homes</span>
+            </h1>
+            <p class="text-lg md:text-xl font-medium mb-8 animate-fade-in-up delay-200">
+                Uy tín - Minh bạch - Chất lượng <br>
+                <span class="text-[#FBBF24]">Ước tính chi phí chỉ trong 1 phút!</span>
+            </p>
+            <a href="#estimate-section" class="inline-block bg-[#FBBF24] text-[#1F2937] font-bold py-3 px-10 rounded-full hover:bg-[#FCD34D] transition-colors duration-300 transform hover:scale-105 animate-fade-in-up delay-400 shadow-lg">
+                Ước Tính Chi Phí Ngay
+            </a>
         </div>
-    </header>
+    </section>
 
-    <!-- Side Menu (mobile) -->
-    <div id="side-menu" class="fixed top-0 right-0 h-full w-64 bg-[#1F2937] shadow-lg z-[55] transform translate-x-full transition-transform duration-300 ease-in-out">
-        <div class="p-6 h-full flex flex-col">
-            <button id="close-side-menu" class="absolute top-4 right-4 text-[#E0E7FF] hover:text-[#FBBF24]">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-            <h1 class="text-xl font-bold text-[#FBBF24] mb-8 mt-12 text-center">Menu</h1>
-            <ul class="flex flex-col space-y-4 flex-grow overflow-y-auto" id="side-nav-list">
-                <!-- Side menu items injected by script.js -->
-            </ul>
-            <div class="mt-8 pt-4 border-t border-gray-700 text-center">
-                <p class="text-sm text-gray-400 mb-2">Liên hệ ngay:</p>
-                <a href="tel:+84899618286" class="flex items-center justify-center space-x-2 text-[#FBBF24] font-bold text-lg hover:text-[#FCD34D] transition-colors duration-200 mb-2">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.46.57 3.57.11.35.03.74-.25 1.02L6.62 10.79z"></path></svg>
-                    <span>0899 618 286</span>
-                </a>
-                <a href="https://zalo.me/0772634611" target="_blank" rel="noopener noreferrer" class="flex items-center justify-center space-x-2 text-[#63e3ff] font-bold text-lg hover:text-[#90f2ff] transition-colors duration-200">
-                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2.5 15c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm5 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm2.5-7.5c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm-5 0c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"></path></svg>
-                    <span>Zalo</span>
-                </a>
+    <!-- THÔNG ĐIỆP & LỢI ÍCH -->
+    <section class="max-w-4xl mx-auto py-10 px-4 text-center">
+        <h2 class="text-2xl md:text-3xl font-bold mb-3 text-[#FBBF24]">Tại sao chọn ESB Homes?</h2>
+        <p class="mb-6 text-lg font-medium">Chúng tôi mang đến giải pháp xây nhà phố trọn gói <b>tiết kiệm - an tâm - tối ưu</b> cho khách hàng tại TP.HCM và miền Nam.</p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mt-8">
+            <div class="content-card p-6">
+                <h3 class="text-xl font-bold mb-3 text-[#D97706]">Báo giá minh bạch</h3>
+                <p>Cam kết không phát sinh, hợp đồng rõ ràng, thanh toán linh hoạt theo tiến độ.</p>
+            </div>
+            <div class="content-card p-6">
+                <h3 class="text-xl font-bold mb-3 text-[#D97706]">Đội ngũ chuyên nghiệp</h3>
+                <p>Kỹ sư, kiến trúc sư giàu kinh nghiệm, giám sát chặt chẽ, vật tư chuẩn chất lượng.</p>
+            </div>
+            <div class="content-card p-6">
+                <h3 class="text-xl font-bold mb-3 text-[#D97706]">Chính sách bảo hành</h3>
+                <p>Bảo hành dài hạn, hỗ trợ tận tâm sau bàn giao, đồng hành cùng khách hàng lâu dài.</p>
             </div>
         </div>
-    </div>
-    <div id="side-menu-overlay" class="fixed inset-0 bg-black opacity-0 z-[50] hidden transition-opacity duration-300 ease-in-out"></div>
+    </section>
 
-    <main class="flex-1">
-        <!-- Spacer for fixed header -->
-        <div class="h-20 md:h-24"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 pb-24 lg:pb-24">
-
-            <!-- HERO SECTION -->
-            <section id="hero-section" class="relative bg-cover bg-center h-[50vh] md:h-[60vh] flex items-center justify-center text-center rounded-lg shadow-lg" style="background-image: url('images/hero_background.jpg');">
-                <div class="absolute inset-0 bg-black opacity-60 rounded-lg"></div>
-                <div class="relative z-10 text-white p-4">
-                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 animate-fade-in-up">
-                        Ước Tính Chi Phí Xây Dựng Nhà Phố Trọn Gói
-                    </h1>
-                    <p class="text-lg md:text-xl font-medium mb-8 animate-fade-in-up delay-200">
-                        Minh bạch - Uy tín - Chất lượng
-                    </p>
-                    <!-- Đã fix: chuyển href về đúng id nơi có form estimator -->
-                    <a href="#bao-gia-xd-tron-goi" class="inline-block bg-[#FBBF24] text-[#1F2937] font-bold py-3 px-8 rounded-full hover:bg-[#FCD34D] transition-colors duration-300 transform hover:scale-105 animate-fade-in-up delay-400">
-                        Bắt đầu ước tính
-                    </a>
+    <!-- FORM ƯỚC TÍNH CHI PHÍ -->
+    <section id="estimate-section" class="max-w-3xl mx-auto py-14 px-4" style="scroll-margin-top: 100px;">
+        <div class="content-card p-8 shadow-2xl">
+            <h2 class="text-2xl font-bold mb-6 text-[#FBBF24] text-center">Công cụ Ước tính Chi phí Xây dựng</h2>
+            <form id="estimatorForm">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label for="area" class="block text-sm font-medium mb-1">Diện tích sàn (m²):</label>
+                        <input type="number" id="area" class="w-full p-2 border border-gray-300 rounded-md focus:ring-[#FBBF24] focus:border-[#FBBF24]" placeholder="VD: 80" min="20" max="500" required>
+                    </div>
+                    <div>
+                        <label for="floors" class="block text-sm font-medium mb-1">Số tầng:</label>
+                        <input type="number" id="floors" class="w-full p-2 border border-gray-300 rounded-md focus:ring-[#FBBF24] focus:border-[#FBBF24]" placeholder="VD: 3" min="1" max="7" required>
+                    </div>
+                    <div>
+                        <label for="style" class="block text-sm font-medium mb-1">Phong cách:</label>
+                        <select id="style" class="w-full p-2 border border-gray-300 rounded-md focus:ring-[#FBBF24] focus:border-[#FBBF24]">
+                            <option value="modern">Hiện đại</option>
+                            <option value="neoclassical">Tân cổ điển</option>
+                            <option value="minimalist">Tối giản</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="finish" class="block text-sm font-medium mb-1">Mức hoàn thiện:</label>
+                        <select id="finish" class="w-full p-2 border border-gray-300 rounded-md focus:ring-[#FBBF24] focus:border-[#FBBF24]">
+                            <option value="basic">Cơ bản</option>
+                            <option value="standard">Trung bình</option>
+                            <option value="premium">Cao cấp</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="foundation_type" class="block text-sm font-medium mb-1">Loại móng:</label>
+                        <select id="foundation_type" class="w-full p-2 border border-gray-300 rounded-md focus:ring-[#FBBF24] focus:border-[#FBBF24]">
+                            <option value="simple">Móng đơn</option>
+                            <option value="strip">Móng băng</option>
+                            <option value="pile">Móng cọc</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="mezzanine_option" class="block text-sm font-medium mb-1">Tầng lửng:</label>
+                        <select id="mezzanine_option" class="w-full p-2 border border-gray-300 rounded-md focus:ring-[#FBBF24] focus:border-[#FBBF24]">
+                            <option value="no">Không</option>
+                            <option value="yes">Có</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="rooftop_option" class="block text-sm font-medium mb-1">Sân thượng:</label>
+                        <select id="rooftop_option" class="w-full p-2 border border-gray-300 rounded-md focus:ring-[#FBBF24] focus:border-[#FBBF24]">
+                            <option value="no">Không</option>
+                            <option value="yes">Có</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="roof_type" class="block text-sm font-medium mb-1">Loại mái:</label>
+                        <select id="roof_type" class="w-full p-2 border border-gray-300 rounded-md focus:ring-[#FBBF24] focus:border-[#FBBF24]">
+                            <option value="flat">Mái bằng</option>
+                            <option value="thai">Mái Thái</option>
+                            <option value="japanese">Mái Nhật</option>
+                        </select>
+                    </div>
                 </div>
-            </section>
-
-            <!-- Các SECTION khác giữ nguyên cấu trúc, mỗi mục có id khớp với menu/submenu
-                 (ví dụ: id="gioi-thieu", id="ve-chung-toi", id="yeu-to-anh-huong", v.v.) -->
-
-            <!-- ...Các section nội dung khác... -->
-
+                <button type="submit" id="calculateBtn" class="w-full bg-[#FBBF24] text-[#1F2937] font-bold py-3 px-4 rounded-md hover:bg-[#FCD34D] transition-colors duration-300 flex items-center justify-center space-x-2">
+                    <span>Ước tính Chi phí</span>
+                    <div id="costLoadingSpinner" class="loading-spinner"></div>
+                </button>
+            </form>
+            <div id="costError" class="text-red-600 text-sm mt-4 hidden text-center"></div>
+            <div id="resultsSection" class="hidden">
+                <div class="mt-8 p-4 bg-gray-50 rounded-md border border-gray-200">
+                    <h4 class="text-lg font-bold mb-2 text-center">Ước tính Chi phí Trọn gói:</h4>
+                    <p id="estimatedCost" class="text-2xl font-extrabold text-[#D97706] text-center">-- VNĐ</p>
+                    <p class="text-sm text-gray-600 text-center mt-2 font-medium">(*Đây là ước tính sơ bộ, chi phí thực tế có thể thay đổi)</p>
+                </div>
+                <div class="mt-8">
+                    <h4 class="text-lg font-bold mb-4 text-center">Phân bổ Chi phí Ước tính</h4>
+                    <div class="chart-container">
+                        <canvas id="costBreakdownChart"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
-    </main>
+    </section>
 
-    <footer class="bg-[#1F2937] text-[#E0E7FF] py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
-            <!-- Footer content giữ nguyên -->
+    <!-- LIÊN HỆ -->
+    <section id="contact-section" class="max-w-3xl mx-auto py-14 px-4">
+        <div class="content-card p-8 shadow-2xl text-center">
+            <h2 class="text-2xl font-bold mb-6 text-[#FBBF24]">Liên hệ tư vấn & báo giá miễn phí</h2>
+            <p class="mb-6">Bạn cần tư vấn chi tiết hoặc muốn nhận báo giá trọn gói? <br>Gọi hotline/Zalo hoặc gửi email cho ESB Homes ngay!</p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <a href="tel:+84899618286" class="block p-4 rounded-lg bg-[#FBBF24] text-[#1F2937] font-bold text-lg hover:bg-[#FCD34D] transition">Hotline: 0899 618 286</a>
+                <a href="https://zalo.me/0772634611" target="_blank" class="block p-4 rounded-lg bg-[#008CFF] text-white font-bold text-lg hover:bg-[#007BFF] transition">Zalo: 0772 634 611</a>
+                <a href="mailto:esb.homes.company@gmail.com" class="block p-4 rounded-lg bg-blue-600 text-white font-bold text-lg hover:bg-blue-700 transition">Email: esb.homes.company@gmail.com</a>
+            </div>
         </div>
-        <div class="text-center pt-16 text-xs text-white">
-            Copyright by ESB HOMES
+    </section>
+
+    <!-- ĐỊA CHỈ & BẢN ĐỒ -->
+    <section class="max-w-3xl mx-auto py-12 px-4">
+        <div class="content-card p-6 text-center">
+            <h3 class="text-xl font-bold mb-3 text-[#D97706]">Địa chỉ văn phòng ESB Homes</h3>
+            <p class="mb-4 font-medium">14A Đường số 21, Phường Tân Quy, Quận 7, TP. Hồ Chí Minh</p>
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.864073041933!2d106.70295147493297!3d10.744111389408666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752f9c3f9a7d3f%3A0xf6d7a4b2e8a6c8e!2zMTQyIMSQxrDhu5dngyBT4buRIDIxLCBQaMaw4buduZyBUw6JuIFF1eSwgUXXlbiA3LCBUaMOgbmggcGjhu5EgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e0!3m2!1svi!2s!4v1719632483842!5m2!1svi!2s"
+                width="100%"
+                height="320"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
         </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-[#1F2937] text-[#E0E7FF] py-6 px-4 text-center text-sm">
+        <div class="mb-2">© 2025 ESB Homes. All rights reserved.</div>
+        <div>Xây dựng nhà phố trọn gói | Hotline: 0899 618 286 | Email: esb.homes.company@gmail.com</div>
     </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
