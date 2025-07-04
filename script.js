@@ -422,3 +422,11 @@ Cảm ơn.
         else mainHeader.classList.remove('header-scrolled');
     });
 };
+document.querySelectorAll('a[href="#bao-gia-xd-tron-goi"]').forEach(link => {
+    link.addEventListener('click', function() {
+        setTimeout(() => {
+            const areaInput = document.getElementById('area');
+            if(areaInput) areaInput.focus();
+        }, 600);
+    });
+});
